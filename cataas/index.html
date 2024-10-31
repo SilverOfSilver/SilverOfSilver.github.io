@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <script>
+        const divs = document.getElementsByTagName("div");
+        function fetchCatImage() {
+            for (let i = 0; i < divs.length; i++) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("GET", "https://cataas.com/cat/cute", true);
+                xhr.responseType = "blob";
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        const imgURL = URL.createObjectURL(xhr.response);
+                        divs[i].innerHTML = `<img src="${imgURL}" alt="Random Cat Image" width="500"/>`;
+                    } else {
+                        console.error("Womp Womp, couldn't load a cat.");
+                    }
+                };
+                xhr.send();
+            }
+        }
+
+        window.onload = fetchCatImage;
+    </script>
+</body>
+
+</html>
